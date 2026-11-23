@@ -9,5 +9,20 @@ services:
       - qdrant_storage:/qdrant/storage
     restart: unless-stopped
 
+  postgres:
+    image: postgres:16-alpine
+    container_name: vnfin_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-vnfin_db}
+      POSTGRES_USER: ${POSTGRES_USER:-vnfin_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-vnfin_dev_pass}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_storage:/var/lib/postgresql/data
+      - ./src/agents/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    restart: unless-stopped
+
 volumes:
   qdrant_storage:
+  postgres_storage:
