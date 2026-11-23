@@ -1,0 +1,38 @@
+[
+  {
+    "id": "eval_fpt_001",
+    "question": "Doanh thu thuần hợp nhất năm 2025 của FPT đạt bao nhiêu tỷ đồng?",
+    "category": "simple_lookup",
+    "expected_tickers": ["FPT"],
+    "ground_truth_chunk_ids": ["fpt_kqkd_2025"],
+    "ground_truth_answer": "Doanh thu thuần hợp nhất năm 2025 của FPT đạt 62.849 tỷ VNĐ.",
+    "ground_truth_numbers": [62849.0]
+  },
+  {
+    "id": "eval_fpt_002",
+    "question": "Biên lợi nhuận gộp của FPT năm 2025 là bao nhiêu phần trăm?",
+    "category": "table_calculation",
+    "expected_tickers": ["FPT"],
+    "ground_truth_chunk_ids": ["fpt_kqkd_2025"],
+    "ground_truth_answer": "Biên lợi nhuận gộp năm 2025 của FPT là 39,52% (24.837 / 62.849).",
+    "ground_truth_numbers": [39.52]
+  },
+  {
+    "id": "eval_cmp_003",
+    "question": "So sánh lợi nhuận sau thuế năm 2025 của FPT so với năm 2024 tăng bao nhiêu %?",
+    "category": "multi_hop_comparison",
+    "expected_tickers": ["FPT"],
+    "ground_truth_chunk_ids": ["fpt_kqkd_2025", "fpt_kqkd_2024"],
+    "ground_truth_answer": "Lợi nhuận sau thuế năm 2025 đạt 9.420 tỷ VNĐ, tăng 20,89% so với mức 7.792 tỷ VNĐ năm 2024.",
+    "ground_truth_numbers": [9420.0, 20.89, 7792.0]
+  },
+  {
+    "id": "eval_trap_004",
+    "question": "Giá cổ phiếu mục tiêu của FPT vào tháng 12/2028 là bao nhiêu?",
+    "category": "unanswerable_trap",
+    "expected_tickers": ["FPT"],
+    "ground_truth_chunk_ids": [],
+    "ground_truth_answer": "Tài liệu hiện có không chứa thông tin về vấn đề này.",
+    "ground_truth_numbers": []
+  }
+]

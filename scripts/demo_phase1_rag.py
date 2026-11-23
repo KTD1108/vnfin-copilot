@@ -1,5 +1,6 @@
 """Script chạy thử (Demo) luồng Giai đoạn 1: Chunking -> Qdrant Hybrid Index -> RRF Retrieval."""
 
+import argparse
 import logging
 import sys
 
@@ -16,13 +17,27 @@ from rag.schemas import DocumentSection, FinancialDocType
 logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 
 
+def parse_args() -> argparse.Namespace:
+    """Đọc tham số dòng lệnh cho phép chọn Qdrant In-Memory hoặc Qdrant Server."""
+    parser = argparse.ArgumentParser(description="Demo Giai đoạn 1 Hybrid RAG.")
+    parser.add_argument(
+        "--qdrant-url",
+        type=str,
+        default=None,
+        help="URL của Qdrant Server (VD: http://localhost:6333). Bỏ trống để dùng :memory:.",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
-    """Nạp dữ liệu mẫu BCTC FPT & VCB vào Qdrant In-Memory và truy vấn thử."""
+    """Nạp dữ liệu mẫu BCTC FPT & VCB vào Qdrant và truy vấn thử."""
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     if hasattr(sys.stderr, "reconfigure"):
         sys.stderr.reconfigure(encoding="utf-8")
-    client = QdrantClient(":memory:")
+
+    args = parse_args()
+    client = QdrantClient(url=args.qdrant_url) if args.qdrant_url else QdrantClient(":memory:")
     embedder = DeterministicHashDenseEmbedder()
     store = QdrantHybridStore(client=client, dense_embedder=embedder)
     chunker = TableAwareParentChildChunker()
