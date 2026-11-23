@@ -1,0 +1,64 @@
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node / Frontend (if added later)
+node_modules/
+
+# Logs & Databases
+*.log
+*.sqlite
+*.db
+
+# Heavy Data, PDFs & Model Weights
+*.parquet
+*.csv
+*.pt
+*.pth
+*.onnx
+*.bin
+*.safetensors
+*.gguf
+data/raw/
+data/processed/
+models/
+checkpoints/
+wandb/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
