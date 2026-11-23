@@ -123,7 +123,12 @@ class VnFinCopilotPipeline:
         db_path: Path = DEFAULT_DB_PATH,
     ) -> None:
         self.embedder = DeterministicHashDenseEmbedder()
-        self.qdrant_client = qdrant_client or QdrantClient(":memory:")
+        if qdrant_client is not None:
+            self.qdrant_client = qdrant_client
+        elif os.getenv("QDRANT_URL"):
+            self.qdrant_client = QdrantClient(url=os.environ["QDRANT_URL"])
+        else:
+            self.qdrant_client = QdrantClient(":memory:")
         self.store = QdrantHybridStore(client=self.qdrant_client, dense_embedder=self.embedder)
         _seed_default_rag_corpus(self.store)
 

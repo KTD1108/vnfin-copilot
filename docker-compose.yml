@@ -23,6 +23,20 @@ services:
       - ./src/agents/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
     restart: unless-stopped
 
+  api:
+    build: .
+    container_name: vnfin_api
+    ports:
+      - "8080:8080"
+    environment:
+      QDRANT_URL: http://qdrant:6333
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    depends_on:
+      - qdrant
+      - postgres
+    restart: unless-stopped
+
 volumes:
   qdrant_storage:
   postgres_storage:
